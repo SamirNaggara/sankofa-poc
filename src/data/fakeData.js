@@ -1,3 +1,5 @@
+import { daysFromNow, toISO, toFR, toFRShort, toFRRange, toFRRangeDash } from '../utils/dateUtils'
+
 export const creatorProfile = {
   name: 'Amina Diallo',
   bio: 'Créatrice de contenu voyage & lifestyle. 250K abonnés passionnés de découvertes culturelles.',
@@ -52,7 +54,7 @@ export const surveys = [
     id: 1,
     title: 'Où partir cet été ? 🌴',
     status: 'completed',
-    date: '2026-04-20',
+    date: toISO(daysFromNow(-32)),
     responses: 847,
     destinations: ['Bali', 'Islande', 'Marrakech', 'Santorin', 'Tokyo'],
     budgetRanges: ['500-1000€', '1000-1500€', '1500-2000€'],
@@ -68,7 +70,7 @@ export const surveys = [
     id: 2,
     title: 'Week-end surprise en Europe ✈️',
     status: 'draft',
-    date: '2026-05-10',
+    date: toISO(daysFromNow(-12)),
     responses: 0,
     destinations: ['Lisbonne', 'Prague', 'Barcelone'],
     budgetRanges: ['500-1000€', '1000-1500€'],
@@ -297,7 +299,7 @@ export const suggestedTripsBySurvey = {
 export const voyageControlData = {
   1: {
     status: 'selling',
-    departureDate: '2026-05-17',
+    departureDate: toISO(daysFromNow(23)),
     kpis: {
       inscrits: 20,
       maxPlaces: 25,
@@ -314,7 +316,7 @@ export const voyageControlData = {
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Sophie&backgroundColor=ffd5dc',
         paiement: 'payé',
         montant: 1350,
-        date: '2026-04-25',
+        date: toISO(daysFromNow(-27)),
         source: 'Instagram',
         ville: 'Paris',
         age: 26,
@@ -332,7 +334,7 @@ export const voyageControlData = {
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Maxime&backgroundColor=c0e8ff',
         paiement: 'payé',
         montant: 1350,
-        date: '2026-04-26',
+        date: toISO(daysFromNow(-26)),
         source: 'TikTok',
         ville: 'Lyon',
         age: 31,
@@ -350,7 +352,7 @@ export const voyageControlData = {
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Camille&backgroundColor=d5f5e3',
         paiement: '3x',
         montant: 1350,
-        date: '2026-04-28',
+        date: toISO(daysFromNow(-24)),
         source: 'Instagram',
         ville: 'Bordeaux',
         age: 24,
@@ -368,7 +370,7 @@ export const voyageControlData = {
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Antoine&backgroundColor=fde8cd',
         paiement: 'payé',
         montant: 1350,
-        date: '2026-05-02',
+        date: toISO(daysFromNow(-20)),
         source: 'Campagne été 2026',
         ville: 'Marseille',
         age: 29,
@@ -386,7 +388,7 @@ export const voyageControlData = {
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Lea&backgroundColor=e8d5f5',
         paiement: 'en attente',
         montant: 1350,
-        date: '2026-05-10',
+        date: toISO(daysFromNow(-12)),
         source: 'Lien bio',
         ville: 'Toulouse',
         age: 27,
@@ -404,7 +406,7 @@ export const voyageControlData = {
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Hugo&backgroundColor=d5e8f5',
         paiement: 'payé',
         montant: 1350,
-        date: '2026-05-12',
+        date: toISO(daysFromNow(-10)),
         source: 'Bouche à oreille',
         ville: 'Nantes',
         age: 33,
@@ -459,11 +461,11 @@ Story 5 : "Plus que 4 places" avec urgence visuelle`,
       commissionCreateur: 5400,
       paiementsRecus: 20,
       paiementsEnAttente: 1,
-      prochainVersement: '2026-06-01',
+      prochainVersement: toISO(daysFromNow(10)),
     },
     editData: {
       titre: 'Bali Essentiel : Temples, Rizières & Fonds Marins',
-      dates: '17 — 23 mai 2026',
+      dates: toFRRange(daysFromNow(23), daysFromNow(29)),
       prix: '1 350€',
       description: 'Un voyage immersif de 7 jours à Bali, entre temples millénaires, rizières en terrasses et plongée dans les eaux cristallines de Nusa Penida. Hébergement en écolodge familial au cœur des rizières, guide francophone et immersion avec les habitants.',
       inclus: ['Vols A/R', 'Écolodge familial', 'Petit-déjeuners', 'Activités', 'Guide francophone', 'Transferts'],
@@ -472,7 +474,7 @@ Story 5 : "Plus que 4 places" avec urgence visuelle`,
   },
   2: {
     status: 'en-cours',
-    departureDate: '2026-05-11',
+    departureDate: toISO(daysFromNow(-3)),
     duration: 5,
     kpis: {
       inscrits: 14,
@@ -483,20 +485,20 @@ Story 5 : "Plus que 4 places" avec urgence visuelle`,
       caObjectif: 18880,
     },
     participants: [
-      { id: 1, name: 'Émilie Rousseau', email: 'emilie.r@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Emilie&backgroundColor=ffd5dc', paiement: 'payé', montant: 1180, date: '2026-03-10', source: 'Instagram', ville: 'Paris', age: 25, telephone: '+33 6 11 22 33 44', allergies: 'Aucune', regime: 'Végétarien', passeport: true, noteCreateur: 'Première fan à avoir réservé, super enthousiaste.', instagram: '@emilie.rss', urgence: { nom: 'Pierre Rousseau', lien: 'Père', telephone: '+33 6 10 10 10 10' } },
-      { id: 2, name: 'Julien Carpentier', email: 'julien.c@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Julien&backgroundColor=c0e8ff', paiement: 'payé', montant: 1180, date: '2026-03-12', source: 'Instagram', ville: 'Lyon', age: 28, telephone: '+33 6 22 33 44 55', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Photographe amateur, pourra créer du contenu.', instagram: '@julien.crp', urgence: { nom: 'Anne Carpentier', lien: 'Mère', telephone: '+33 6 20 20 20 20' } },
-      { id: 3, name: 'Manon Girard', email: 'manon.g@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Manon&backgroundColor=d5f5e3', paiement: 'payé', montant: 1180, date: '2026-03-14', source: 'TikTok', ville: 'Lille', age: 23, telephone: '+33 6 33 44 55 66', allergies: 'Lactose', regime: 'Aucun', passeport: true, noteCreateur: 'Découverte via TikTok, très engagée en DM.', instagram: '@manon.grd', urgence: { nom: 'Luc Girard', lien: 'Frère', telephone: '+33 6 30 30 30 30' } },
-      { id: 4, name: 'Nicolas Leroy', email: 'nicolas.l@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Nicolas&backgroundColor=fde8cd', paiement: 'payé', montant: 1180, date: '2026-03-15', source: 'Campagne été 2026', ville: 'Strasbourg', age: 34, telephone: '+33 6 44 55 66 77', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Voyageur expérimenté, rassure les autres participants.', instagram: '@nico.leroy', urgence: { nom: 'Sophie Leroy', lien: 'Conjointe', telephone: '+33 6 40 40 40 40' } },
-      { id: 5, name: 'Clara Dupont', email: 'clara.d@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Clara&backgroundColor=e8d5f5', paiement: 'payé', montant: 1180, date: '2026-03-18', source: 'Instagram', ville: 'Bordeaux', age: 26, telephone: '+33 6 55 66 77 88', allergies: 'Gluten', regime: 'Sans gluten', passeport: true, noteCreateur: 'Active sur les stories, partage souvent mon contenu.', instagram: '@clara.dpt', urgence: { nom: 'Jean Dupont', lien: 'Père', telephone: '+33 6 50 50 50 50' } },
-      { id: 6, name: 'Alexandre Martin', email: 'alex.m@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Alexandre&backgroundColor=d5e8f5', paiement: 'payé', montant: 1180, date: '2026-03-20', source: 'Lien bio', ville: 'Marseille', age: 30, telephone: '+33 6 66 77 88 99', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'A convaincu 2 amis de s\'inscrire aussi.', instagram: '@alex.mtn', urgence: { nom: 'Claire Martin', lien: 'Soeur', telephone: '+33 6 60 60 60 60' } },
-      { id: 7, name: 'Inès Boucher', email: 'ines.b@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Ines&backgroundColor=ffd5dc', paiement: 'payé', montant: 1180, date: '2026-03-22', source: 'TikTok', ville: 'Toulouse', age: 22, telephone: '+33 6 77 88 99 00', allergies: 'Fruits de mer', regime: 'Aucun', passeport: true, noteCreateur: 'La plus jeune du groupe, dynamique et fun.', instagram: '@ines.bch', urgence: { nom: 'Fatima Boucher', lien: 'Mère', telephone: '+33 6 70 70 70 70' } },
-      { id: 8, name: 'Raphaël Garnier', email: 'raphael.g@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Raphael&backgroundColor=c0e8ff', paiement: 'payé', montant: 1180, date: '2026-03-25', source: 'Instagram', ville: 'Nice', age: 32, telephone: '+33 6 88 99 00 11', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Membre du club privé Telegram depuis le lancement.', instagram: '@raph.grn', urgence: { nom: 'Isabelle Garnier', lien: 'Mère', telephone: '+33 6 80 80 80 80' } },
-      { id: 9, name: 'Zoé Lemoine', email: 'zoe.l@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Zoe&backgroundColor=d5f5e3', paiement: 'payé', montant: 1180, date: '2026-03-28', source: 'Bouche à oreille', ville: 'Rennes', age: 27, telephone: '+33 6 99 00 11 22', allergies: 'Arachides', regime: 'Vegan', passeport: true, noteCreateur: 'Recommandée par Clara, amie proche.', instagram: '@zoe.lmn', urgence: { nom: 'Paul Lemoine', lien: 'Conjoint', telephone: '+33 6 90 90 90 90' } },
-      { id: 10, name: 'Théo Morel', email: 'theo.m@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Theo&backgroundColor=fde8cd', paiement: 'payé', montant: 1180, date: '2026-04-01', source: 'TikTok', ville: 'Montpellier', age: 29, telephone: '+33 6 10 21 32 43', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'A commenté toutes les vidéos du voyage précédent.', instagram: '@theo.mrl', urgence: { nom: 'Diane Morel', lien: 'Conjointe', telephone: '+33 6 11 11 11 11' } },
-      { id: 11, name: 'Jade Perrin', email: 'jade.p@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Jade&backgroundColor=e8d5f5', paiement: 'payé', montant: 1180, date: '2026-04-03', source: 'Instagram', ville: 'Nantes', age: 25, telephone: '+33 6 21 32 43 54', allergies: 'Aucune', regime: 'Végétarien', passeport: true, noteCreateur: 'Influence locale à Nantes (~8K abonnés), potentiel UGC.', instagram: '@jade.prn', urgence: { nom: 'Marc Perrin', lien: 'Père', telephone: '+33 6 22 22 22 22' } },
-      { id: 12, name: 'Louis Fournier', email: 'louis.f@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Louis&backgroundColor=d5e8f5', paiement: 'payé', montant: 1180, date: '2026-04-05', source: 'Campagne été 2026', ville: 'Paris', age: 35, telephone: '+33 6 32 43 54 65', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Inscrit via la campagne Meta Ads.', instagram: '@louis.frn', urgence: { nom: 'Julie Fournier', lien: 'Conjointe', telephone: '+33 6 33 33 33 33' } },
-      { id: 13, name: 'Eva Blanc', email: 'eva.b@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Eva&backgroundColor=ffd5dc', paiement: 'payé', montant: 1180, date: '2026-04-08', source: 'Lien bio', ville: 'Grenoble', age: 24, telephone: '+33 6 43 54 65 76', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Abonnée newsletter depuis le jour 1.', instagram: '@eva.blc', urgence: { nom: 'Laurent Blanc', lien: 'Père', telephone: '+33 6 44 44 44 44' } },
-      { id: 14, name: 'Gabriel Simon', email: 'gabriel.s@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Gabriel&backgroundColor=c0e8ff', paiement: 'payé', montant: 1180, date: '2026-04-10', source: 'Instagram', ville: 'Lyon', age: 28, telephone: '+33 6 54 65 76 87', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'A participé au Q&A live, très pertinent dans ses questions.', instagram: '@gabriel.smn', urgence: { nom: 'Nathalie Simon', lien: 'Mère', telephone: '+33 6 55 55 55 55' } },
+      { id: 1, name: 'Émilie Rousseau', email: 'emilie.r@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Emilie&backgroundColor=ffd5dc', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-73)), source: 'Instagram', ville: 'Paris', age: 25, telephone: '+33 6 11 22 33 44', allergies: 'Aucune', regime: 'Végétarien', passeport: true, noteCreateur: 'Première fan à avoir réservé, super enthousiaste.', instagram: '@emilie.rss', urgence: { nom: 'Pierre Rousseau', lien: 'Père', telephone: '+33 6 10 10 10 10' } },
+      { id: 2, name: 'Julien Carpentier', email: 'julien.c@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Julien&backgroundColor=c0e8ff', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-71)), source: 'Instagram', ville: 'Lyon', age: 28, telephone: '+33 6 22 33 44 55', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Photographe amateur, pourra créer du contenu.', instagram: '@julien.crp', urgence: { nom: 'Anne Carpentier', lien: 'Mère', telephone: '+33 6 20 20 20 20' } },
+      { id: 3, name: 'Manon Girard', email: 'manon.g@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Manon&backgroundColor=d5f5e3', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-69)), source: 'TikTok', ville: 'Lille', age: 23, telephone: '+33 6 33 44 55 66', allergies: 'Lactose', regime: 'Aucun', passeport: true, noteCreateur: 'Découverte via TikTok, très engagée en DM.', instagram: '@manon.grd', urgence: { nom: 'Luc Girard', lien: 'Frère', telephone: '+33 6 30 30 30 30' } },
+      { id: 4, name: 'Nicolas Leroy', email: 'nicolas.l@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Nicolas&backgroundColor=fde8cd', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-68)), source: 'Campagne été 2026', ville: 'Strasbourg', age: 34, telephone: '+33 6 44 55 66 77', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Voyageur expérimenté, rassure les autres participants.', instagram: '@nico.leroy', urgence: { nom: 'Sophie Leroy', lien: 'Conjointe', telephone: '+33 6 40 40 40 40' } },
+      { id: 5, name: 'Clara Dupont', email: 'clara.d@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Clara&backgroundColor=e8d5f5', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-65)), source: 'Instagram', ville: 'Bordeaux', age: 26, telephone: '+33 6 55 66 77 88', allergies: 'Gluten', regime: 'Sans gluten', passeport: true, noteCreateur: 'Active sur les stories, partage souvent mon contenu.', instagram: '@clara.dpt', urgence: { nom: 'Jean Dupont', lien: 'Père', telephone: '+33 6 50 50 50 50' } },
+      { id: 6, name: 'Alexandre Martin', email: 'alex.m@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Alexandre&backgroundColor=d5e8f5', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-63)), source: 'Lien bio', ville: 'Marseille', age: 30, telephone: '+33 6 66 77 88 99', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'A convaincu 2 amis de s\'inscrire aussi.', instagram: '@alex.mtn', urgence: { nom: 'Claire Martin', lien: 'Soeur', telephone: '+33 6 60 60 60 60' } },
+      { id: 7, name: 'Inès Boucher', email: 'ines.b@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Ines&backgroundColor=ffd5dc', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-61)), source: 'TikTok', ville: 'Toulouse', age: 22, telephone: '+33 6 77 88 99 00', allergies: 'Fruits de mer', regime: 'Aucun', passeport: true, noteCreateur: 'La plus jeune du groupe, dynamique et fun.', instagram: '@ines.bch', urgence: { nom: 'Fatima Boucher', lien: 'Mère', telephone: '+33 6 70 70 70 70' } },
+      { id: 8, name: 'Raphaël Garnier', email: 'raphael.g@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Raphael&backgroundColor=c0e8ff', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-58)), source: 'Instagram', ville: 'Nice', age: 32, telephone: '+33 6 88 99 00 11', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Membre du club privé Telegram depuis le lancement.', instagram: '@raph.grn', urgence: { nom: 'Isabelle Garnier', lien: 'Mère', telephone: '+33 6 80 80 80 80' } },
+      { id: 9, name: 'Zoé Lemoine', email: 'zoe.l@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Zoe&backgroundColor=d5f5e3', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-55)), source: 'Bouche à oreille', ville: 'Rennes', age: 27, telephone: '+33 6 99 00 11 22', allergies: 'Arachides', regime: 'Vegan', passeport: true, noteCreateur: 'Recommandée par Clara, amie proche.', instagram: '@zoe.lmn', urgence: { nom: 'Paul Lemoine', lien: 'Conjoint', telephone: '+33 6 90 90 90 90' } },
+      { id: 10, name: 'Théo Morel', email: 'theo.m@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Theo&backgroundColor=fde8cd', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-52)), source: 'TikTok', ville: 'Montpellier', age: 29, telephone: '+33 6 10 21 32 43', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'A commenté toutes les vidéos du voyage précédent.', instagram: '@theo.mrl', urgence: { nom: 'Diane Morel', lien: 'Conjointe', telephone: '+33 6 11 11 11 11' } },
+      { id: 11, name: 'Jade Perrin', email: 'jade.p@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Jade&backgroundColor=e8d5f5', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-50)), source: 'Instagram', ville: 'Nantes', age: 25, telephone: '+33 6 21 32 43 54', allergies: 'Aucune', regime: 'Végétarien', passeport: true, noteCreateur: 'Influence locale à Nantes (~8K abonnés), potentiel UGC.', instagram: '@jade.prn', urgence: { nom: 'Marc Perrin', lien: 'Père', telephone: '+33 6 22 22 22 22' } },
+      { id: 12, name: 'Louis Fournier', email: 'louis.f@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Louis&backgroundColor=d5e8f5', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-48)), source: 'Campagne été 2026', ville: 'Paris', age: 35, telephone: '+33 6 32 43 54 65', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Inscrit via la campagne Meta Ads.', instagram: '@louis.frn', urgence: { nom: 'Julie Fournier', lien: 'Conjointe', telephone: '+33 6 33 33 33 33' } },
+      { id: 13, name: 'Eva Blanc', email: 'eva.b@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Eva&backgroundColor=ffd5dc', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-45)), source: 'Lien bio', ville: 'Grenoble', age: 24, telephone: '+33 6 43 54 65 76', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'Abonnée newsletter depuis le jour 1.', instagram: '@eva.blc', urgence: { nom: 'Laurent Blanc', lien: 'Père', telephone: '+33 6 44 44 44 44' } },
+      { id: 14, name: 'Gabriel Simon', email: 'gabriel.s@email.com', avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Gabriel&backgroundColor=c0e8ff', paiement: 'payé', montant: 1180, date: toISO(daysFromNow(-42)), source: 'Instagram', ville: 'Lyon', age: 28, telephone: '+33 6 54 65 76 87', allergies: 'Aucune', regime: 'Aucun', passeport: true, noteCreateur: 'A participé au Q&A live, très pertinent dans ses questions.', instagram: '@gabriel.smn', urgence: { nom: 'Nathalie Simon', lien: 'Mère', telephone: '+33 6 55 55 55 55' } },
     ],
     postsIA: [
       {
@@ -527,11 +529,11 @@ Je vous emmène dans les coulisses du voyage toute la semaine ! Stay tuned 🎬`
       commissionCreateur: 3304,
       paiementsRecus: 14,
       paiementsEnAttente: 0,
-      prochainVersement: '2026-05-25',
+      prochainVersement: toISO(daysFromNow(3)),
     },
     editData: {
       titre: 'Santorin Secrète : Couchers de Soleil & Saveurs Égéennes',
-      dates: '11 — 15 mai 2026',
+      dates: toFRRange(daysFromNow(-3), daysFromNow(1)),
       prix: '1 180€',
       description: "Cinq jours sur l'île la plus photogénique des Cyclades. Des villages blancs suspendus au-dessus de la caldeira, des couchers de soleil légendaires à Oia, et une gastronomie méditerranéenne authentique.",
       inclus: ['Vols A/R', 'Maison d\'hôtes locale', 'Petits-déjeuners', 'Croisière catamaran', 'Dégustation vins', 'Transferts'],
@@ -544,20 +546,20 @@ export const voyageChatMessages = {
   1: {
     organizer: 'Karim',
     messages: [
-      { id: 1, sender: 'organizer', text: "Bonjour Amina ! Le voyage Bali se remplit bien, 20 inscrits déjà. On est dans les temps !", time: '10:15', date: '2026-05-14', read: true },
-      { id: 2, sender: 'organizer', text: "J'ai validé les activités avec le prestataire local. La plongée à Nusa Penida est confirmée pour le jour 4.", time: '10:16', date: '2026-05-14', read: true },
-      { id: 3, sender: 'user', text: "Super ! Est-ce qu'on peut ajouter un cours de yoga le matin du jour 5 ?", time: '11:30', date: '2026-05-14', read: true },
-      { id: 4, sender: 'organizer', text: "Bonne idée ! Je check la dispo et je reviens vers toi. Tu veux aussi qu'on prépare un brief photo pour tes contenus ?", time: '14:45', date: '2026-05-15', read: false },
+      { id: 1, sender: 'organizer', text: "Bonjour Amina ! Le voyage Bali se remplit bien, 20 inscrits déjà. On est dans les temps !", time: '10:15', date: toISO(daysFromNow(-8)), read: true },
+      { id: 2, sender: 'organizer', text: "J'ai validé les activités avec le prestataire local. La plongée à Nusa Penida est confirmée pour le jour 4.", time: '10:16', date: toISO(daysFromNow(-8)), read: true },
+      { id: 3, sender: 'user', text: "Super ! Est-ce qu'on peut ajouter un cours de yoga le matin du jour 5 ?", time: '11:30', date: toISO(daysFromNow(-8)), read: true },
+      { id: 4, sender: 'organizer', text: "Bonne idée ! Je check la dispo et je reviens vers toi. Tu veux aussi qu'on prépare un brief photo pour tes contenus ?", time: '14:45', date: toISO(daysFromNow(-7)), read: false },
     ],
   },
   2: {
     organizer: 'Maria',
     messages: [
-      { id: 1, sender: 'organizer', text: "Coucou ! On est bien installés à Santorin, l'hôtel est magnifique. Le groupe est super content !", time: '18:30', date: '2026-05-11', read: true },
-      { id: 2, sender: 'organizer', text: "La croisière catamaran demain est confirmée, départ 10h. Prévois de la crème solaire pour tout le monde !", time: '20:15', date: '2026-05-11', read: true },
-      { id: 3, sender: 'user', text: "Parfait Maria ! Les retours du groupe sur le premier jour ?", time: '21:00', date: '2026-05-11', read: true },
-      { id: 4, sender: 'organizer', text: "Tout le monde adore ! Zoé et Théo ont déjà posté des stories. Le sunset à Oia a fait l'unanimité 🌅", time: '09:00', date: '2026-05-12', read: false },
-      { id: 5, sender: 'organizer', text: "Petit souci : Gabriel a oublié son adaptateur. Je lui en prête un. Sinon RAS, ambiance au top !", time: '09:05', date: '2026-05-12', read: false },
+      { id: 1, sender: 'organizer', text: "Coucou ! On est bien installés à Santorin, l'hôtel est magnifique. Le groupe est super content !", time: '18:30', date: toISO(daysFromNow(-3)), read: true },
+      { id: 2, sender: 'organizer', text: "La croisière catamaran demain est confirmée, départ 10h. Prévois de la crème solaire pour tout le monde !", time: '20:15', date: toISO(daysFromNow(-3)), read: true },
+      { id: 3, sender: 'user', text: "Parfait Maria ! Les retours du groupe sur le premier jour ?", time: '21:00', date: toISO(daysFromNow(-3)), read: true },
+      { id: 4, sender: 'organizer', text: "Tout le monde adore ! Zoé et Théo ont déjà posté des stories. Le sunset à Oia a fait l'unanimité 🌅", time: '09:00', date: toISO(daysFromNow(-2)), read: false },
+      { id: 5, sender: 'organizer', text: "Petit souci : Gabriel a oublié son adaptateur. Je lui en prête un. Sinon RAS, ambiance au top !", time: '09:05', date: toISO(daysFromNow(-2)), read: false },
     ],
   },
 }
@@ -624,15 +626,15 @@ export const voyagePageStats = {
 
 export const voyageTrackingLinks = {
   1: [
-    { id: 1, nom: 'bio-insta', url: 'sankofa.travel/v/bali-essentiel?ref=bio-insta', clicks: 156, inscriptions: 12, createdAt: '2026-04-20' },
-    { id: 2, nom: 'tiktok', url: 'sankofa.travel/v/bali-essentiel?ref=tiktok', clicks: 89, inscriptions: 5, createdAt: '2026-04-22' },
-    { id: 3, nom: 'promo-mai', url: 'sankofa.travel/v/bali-essentiel?ref=promo-mai', clicks: 62, inscriptions: 2, createdAt: '2026-05-01' },
-    { id: 4, nom: 'collab-julie', url: 'sankofa.travel/v/bali-essentiel?ref=collab-julie', clicks: 35, inscriptions: 1, createdAt: '2026-05-05' },
+    { id: 1, nom: 'bio-insta', url: 'sankofa.travel/v/bali-essentiel?ref=bio-insta', clicks: 156, inscriptions: 12, createdAt: toISO(daysFromNow(-32)) },
+    { id: 2, nom: 'tiktok', url: 'sankofa.travel/v/bali-essentiel?ref=tiktok', clicks: 89, inscriptions: 5, createdAt: toISO(daysFromNow(-30)) },
+    { id: 3, nom: 'promo-mai', url: 'sankofa.travel/v/bali-essentiel?ref=promo-mai', clicks: 62, inscriptions: 2, createdAt: toISO(daysFromNow(-21)) },
+    { id: 4, nom: 'collab-julie', url: 'sankofa.travel/v/bali-essentiel?ref=collab-julie', clicks: 35, inscriptions: 1, createdAt: toISO(daysFromNow(-17)) },
   ],
   2: [
-    { id: 1, nom: 'bio-insta', url: 'sankofa.travel/v/santorin-secrete?ref=bio-insta', clicks: 234, inscriptions: 8, createdAt: '2026-03-01' },
-    { id: 2, nom: 'tiktok', url: 'sankofa.travel/v/santorin-secrete?ref=tiktok', clicks: 178, inscriptions: 4, createdAt: '2026-03-05' },
-    { id: 3, nom: 'story-promo', url: 'sankofa.travel/v/santorin-secrete?ref=story-promo', clicks: 98, inscriptions: 1, createdAt: '2026-03-10' },
+    { id: 1, nom: 'bio-insta', url: 'sankofa.travel/v/santorin-secrete?ref=bio-insta', clicks: 234, inscriptions: 8, createdAt: toISO(daysFromNow(-82)) },
+    { id: 2, nom: 'tiktok', url: 'sankofa.travel/v/santorin-secrete?ref=tiktok', clicks: 178, inscriptions: 4, createdAt: toISO(daysFromNow(-78)) },
+    { id: 3, nom: 'story-promo', url: 'sankofa.travel/v/santorin-secrete?ref=story-promo', clicks: 98, inscriptions: 1, createdAt: toISO(daysFromNow(-73)) },
   ],
 }
 
@@ -652,7 +654,7 @@ export const suggestedTrips = [
     estimatedPrice: '1 350€',
     tags: ['Plongée', 'Culture', 'Gastronomie'],
     highlight: 'Destination #1 de votre communauté',
-    departureDate: '17 mai 2026',
+    departureDate: toFR(daysFromNow(23)),
     description: "Un voyage immersif de 7 jours à Bali, entre temples millénaires, rizières en terrasses et plongée dans les eaux cristallines de Nusa Penida. Hébergement en écolodge au cœur des rizières, tenu par une famille balinaise. Immersion totale dans le quotidien local, activités encadrées par des guides locaux — 100% des revenus du séjour sont redistribués aux communautés balinaises.",
     esgHighlights: [
       { icon: 'heart', label: '100% reversé aux locaux', detail: 'Guides, hébergeurs et artisans balinais' },
@@ -755,7 +757,7 @@ export const suggestedTrips = [
     estimatedPrice: '1 180€',
     tags: ['Photographie', 'Gastronomie', 'Détente'],
     highlight: 'Budget idéal pour votre audience',
-    departureDate: '22 août 2026',
+    departureDate: toFR(daysFromNow(92)),
     description: "Cinq jours sur l'île la plus photogénique des Cyclades. Des villages blancs suspendus au-dessus de la caldeira, des couchers de soleil légendaires à Oia, et une gastronomie méditerranéenne authentique. L'escapade parfaite entre détente et découverte. Séjour conçu pour minimiser l'empreinte carbone : vols compensés, déplacements en catamaran à voile, et hébergement chez l'habitant pour soutenir l'économie insulaire.",
     esgHighlights: [
       { icon: 'heart', label: '92% reversé aux locaux', detail: 'Hébergement chez l\'habitant & restaurateurs locaux' },
@@ -836,7 +838,7 @@ export const suggestedTrips = [
     estimatedPrice: '1 890€',
     tags: ['Culture', 'Street Food', 'Artisanat'],
     highlight: 'Expérience unique & immersive',
-    departureDate: '5 septembre 2026',
+    departureDate: toFR(daysFromNow(106)),
     description: "Huit jours entre tradition et modernité dans la capitale japonaise. De Shibuya à Asakusa, des izakayas cachés aux temples zen, plongez au cœur d'une culture fascinante. Street food tour, cérémonie du thé, et soirée karaoké inclus. Un itinéraire pensé slow travel : déplacements en train (JR Pass), nuits en ryokan familial, et chaque activité finance directement des artisans et restaurateurs indépendants.",
     esgHighlights: [
       { icon: 'heart', label: '88% reversé aux locaux', detail: 'Ryokans familiaux, artisans & izakayas' },
@@ -938,14 +940,14 @@ export const suggestedTrips = [
 export const voyageInfosPratiques = {
   1: {
     rendezVous: {
-      date: '17 mai 2026',
+      date: toFR(daysFromNow(23)),
       heure: '06h30',
       lieu: 'Aéroport Paris-CDG, Terminal 2E, Porte K',
       details: 'Retrouvez Cynthia à côté du comptoir Air Asia avec un panneau Sankofa. Elle portera un t-shirt orange Sankofa.'
     },
     billets: {
       type: 'Vol',
-      info: 'Vos billets d\'avion ont été envoyés par email le 12 mai. Pensez à les télécharger en avance.',
+      info: `Vos billets d'avion ont été envoyés par email le ${toFRShort(daysFromNow(-9))}. Pensez à les télécharger en avance.`,
       compagnie: 'Air Asia — Vol AK 1847'
     },
     programme: [
@@ -995,7 +997,7 @@ export const voyageInfosPratiques = {
   },
   2: {
     rendezVous: {
-      date: '11 mai 2026',
+      date: toFR(daysFromNow(-3)),
       heure: '08h00',
       lieu: 'Gare de Lyon, Paris — Hall 1, devant le Relay',
       details: 'Maria vous attend avec les badges du groupe. Le train part à 09h12.'
@@ -1050,28 +1052,28 @@ export const voyageMessages = {
   1: [
     {
       id: 0,
-      date: '2026-05-20',
+      date: toISO(daysFromNow(-2)),
       heure: '21:30',
       message: 'RDV au port de Sanur à 7h pour la plongée ! Prenez vos maillots et votre crème solaire, ça va être magique 🤿🌊',
       epingle: true,
     },
     {
       id: 1,
-      date: '2026-05-16',
+      date: toISO(daysFromNow(-6)),
       heure: '18:30',
       message: 'Le rendez-vous c\'est DEMAIN mes loulous !! Trop hâte de vous voir à CDG. Reposez-vous bien ce soir, on va vivre une semaine de dingue ensemble 🌴',
       epingle: false,
     },
     {
       id: 2,
-      date: '2026-05-14',
+      date: toISO(daysFromNow(-8)),
       heure: '10:00',
       message: 'Petite update : pensez à télécharger vos billets d\'avion AVANT demain, ça évitera le stress à l\'aéroport. Bisous !',
       epingle: false,
     },
     {
       id: 3,
-      date: '2026-05-12',
+      date: toISO(daysFromNow(-10)),
       heure: '14:15',
       message: 'J\'ai eu Cynthia au téléphone, elle a préparé une surprise pour le cocktail de bienvenue... Je ne dis rien de plus 😏',
       epingle: false,
@@ -1080,14 +1082,14 @@ export const voyageMessages = {
   2: [
     {
       id: 1,
-      date: '2026-05-10',
+      date: toISO(daysFromNow(-4)),
       heure: '20:00',
       message: 'C\'EST DEMAIN LES AMIS !! On se retrouve Gare de Lyon à 8h. Maria est déjà sur place à Santorin et tout est prêt. J\'ai tellement hâte 🇬🇷',
       epingle: true,
     },
     {
       id: 2,
-      date: '2026-05-09',
+      date: toISO(daysFromNow(-5)),
       heure: '11:30',
       message: 'N\'oubliez pas vos chaussures de marche pour la rando Fira-Oia, ça grimpe un peu mais la vue en vaut la peine !',
       epingle: false,
@@ -1111,7 +1113,7 @@ export const additionalTrips = [
     estimatedPrice: '1 650€',
     tags: ['Aventure', 'Nature', 'Plage'],
     highlight: 'Biodiversité exceptionnelle',
-    departureDate: '10 août 2026',
+    departureDate: toFR(daysFromNow(80)),
     description: "Neuf jours d'aventure au Costa Rica entre volcans fumants, forêts tropicales et plages du Pacifique. Tyrolienne au-dessus de la canopée, observation de paresseux, et couchers de soleil sur la plage de Manuel Antonio.",
     itinerary: [
       { day: 1, label: 'Arrivée à San José & transfert Arenal', activities: [
@@ -1212,7 +1214,7 @@ export const additionalTrips = [
     estimatedPrice: '2 100€',
     tags: ['Nature', 'Photographie', 'Aventure'],
     highlight: 'Paysages à couper le souffle',
-    departureDate: '18 septembre 2026',
+    departureDate: toFR(daysFromNow(119)),
     description: "Six jours sur la terre de glace et de feu. Le Cercle d'Or, les plages de sable noir, la lagune glaciaire de Jökulsárlón et la chasse aux aurores boréales. Une aventure photographique inoubliable.",
     itinerary: [
       { day: 1, label: 'Arrivée Reykjavik, Blue Lagoon & dîner islandais', activities: [
@@ -1291,7 +1293,7 @@ export const additionalTrips = [
     estimatedPrice: '890€',
     tags: ['Culture', 'Gastronomie', 'Artisanat'],
     highlight: 'Rapport qualité-prix imbattable',
-    departureDate: '3 octobre 2026',
+    departureDate: toFR(daysFromNow(134)),
     description: "Cinq jours dans la ville rouge entre riads somptueux, souks envoûtants et excursion dans l'Atlas. Cours de cuisine marocaine, hammam traditionnel, et nuit dans le désert d'Agafay sous les étoiles.",
     itinerary: [
       { day: 1, label: 'Arrivée, installation riad & tour médina', activities: [
@@ -1363,7 +1365,7 @@ export const additionalTrips = [
     estimatedPrice: '1 280€',
     tags: ['Plage', 'Culture', 'Gastronomie'],
     highlight: 'Perle de l\'Adriatique',
-    departureDate: '12 septembre 2026',
+    departureDate: toFR(daysFromNow(113)),
     description: "Six jours le long de la côte adriatique, de Dubrovnik aux îles de Hvar et Korčula. Remparts médiévaux, eaux turquoise, vignobles en terrasses et cuisine dalmate raffinée. Le parfait mélange culture et farniente.",
     itinerary: [
       { day: 1, label: 'Arrivée Dubrovnik, vieille ville & apéro remparts', activities: [
@@ -1441,8 +1443,8 @@ export const travelerTrips = {
       title: 'Santorin : Couchers de Soleil & Gastronomie Grecque',
       image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800',
       status: 'a-venir',
-      dates: '25 – 29 mai 2026',
-      departureDate: '2026-05-25',
+      dates: toFRRangeDash(daysFromNow(3), daysFromNow(7)),
+      departureDate: toISO(daysFromNow(3)),
       creator: {
         name: 'Amina Diallo',
         avatar: 'https://api.dicebear.com/9.x/avataaars/svg?seed=Amina&backgroundColor=ffd5dc',
@@ -1455,8 +1457,8 @@ export const travelerTrips = {
       title: 'Bali Essentiel : Temples, Rizières & Fonds Marins',
       image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
       status: 'en-cours',
-      dates: '17 – 23 mai 2026',
-      departureDate: '2026-05-17',
+      dates: toFRRangeDash(daysFromNow(23), daysFromNow(29)),
+      departureDate: toISO(daysFromNow(23)),
       currentDay: 4,
       totalDays: 7,
       todayLabel: 'Plongée à Nusa Penida — raies manta & coraux',
@@ -1733,19 +1735,19 @@ export const travelerPayments = {
     totalPrice: 1350,
     totalPaid: 1350,
     echeances: [
-      { id: 1, label: 'Acompte à la réservation', montant: 450, date: '25 mars 2026', status: 'payé' },
-      { id: 2, label: '2ème échéance', montant: 450, date: '25 avril 2026', status: 'payé' },
-      { id: 3, label: 'Solde final', montant: 450, date: '10 mai 2026', status: 'payé' },
+      { id: 1, label: 'Acompte à la réservation', montant: 450, date: toFR(daysFromNow(-58)), status: 'payé' },
+      { id: 2, label: '2ème échéance', montant: 450, date: toFR(daysFromNow(-27)), status: 'payé' },
+      { id: 3, label: 'Solde final', montant: 450, date: toFR(daysFromNow(-12)), status: 'payé' },
     ],
   },
   2: {
     totalPrice: 1180,
     totalPaid: 885,
     echeances: [
-      { id: 1, label: 'Acompte à la réservation', montant: 295, date: '15 mars 2026', status: 'payé' },
-      { id: 2, label: '2ème échéance', montant: 295, date: '15 avril 2026', status: 'payé' },
-      { id: 3, label: '3ème échéance', montant: 295, date: '1 mai 2026', status: 'payé' },
-      { id: 4, label: 'Solde final', montant: 295, date: '20 mai 2026', status: 'en-attente' },
+      { id: 1, label: 'Acompte à la réservation', montant: 295, date: toFR(daysFromNow(-68)), status: 'payé' },
+      { id: 2, label: '2ème échéance', montant: 295, date: toFR(daysFromNow(-37)), status: 'payé' },
+      { id: 3, label: '3ème échéance', montant: 295, date: toFR(daysFromNow(-21)), status: 'payé' },
+      { id: 4, label: 'Solde final', montant: 295, date: toFR(daysFromNow(-2)), status: 'en-attente' },
     ],
   },
 }
@@ -1805,28 +1807,28 @@ export const voyagePromoVideos = {
 
 export const voyageClicksOverTime = {
   1: [
-    { jour: '10 mai', clics: 18 },
-    { jour: '11 mai', clics: 32 },
-    { jour: '12 mai', clics: 27 },
-    { jour: '13 mai', clics: 45 },
-    { jour: '14 mai', clics: 61 },
-    { jour: '15 mai', clics: 54 },
-    { jour: '16 mai', clics: 38 },
-    { jour: '17 mai', clics: 42 },
-    { jour: '18 mai', clics: 35 },
-    { jour: '19 mai', clics: 29 },
+    { jour: toFRShort(daysFromNow(-12)), clics: 18 },
+    { jour: toFRShort(daysFromNow(-11)), clics: 32 },
+    { jour: toFRShort(daysFromNow(-10)), clics: 27 },
+    { jour: toFRShort(daysFromNow(-9)), clics: 45 },
+    { jour: toFRShort(daysFromNow(-8)), clics: 61 },
+    { jour: toFRShort(daysFromNow(-7)), clics: 54 },
+    { jour: toFRShort(daysFromNow(-6)), clics: 38 },
+    { jour: toFRShort(daysFromNow(-5)), clics: 42 },
+    { jour: toFRShort(daysFromNow(-4)), clics: 35 },
+    { jour: toFRShort(daysFromNow(-3)), clics: 29 },
   ],
   2: [
-    { jour: '1 mai', clics: 24 },
-    { jour: '2 mai', clics: 41 },
-    { jour: '3 mai', clics: 55 },
-    { jour: '4 mai', clics: 48 },
-    { jour: '5 mai', clics: 72 },
-    { jour: '6 mai', clics: 63 },
-    { jour: '7 mai', clics: 51 },
-    { jour: '8 mai', clics: 44 },
-    { jour: '9 mai', clics: 37 },
-    { jour: '10 mai', clics: 30 },
+    { jour: toFRShort(daysFromNow(-21)), clics: 24 },
+    { jour: toFRShort(daysFromNow(-20)), clics: 41 },
+    { jour: toFRShort(daysFromNow(-19)), clics: 55 },
+    { jour: toFRShort(daysFromNow(-18)), clics: 48 },
+    { jour: toFRShort(daysFromNow(-17)), clics: 72 },
+    { jour: toFRShort(daysFromNow(-16)), clics: 63 },
+    { jour: toFRShort(daysFromNow(-15)), clics: 51 },
+    { jour: toFRShort(daysFromNow(-14)), clics: 44 },
+    { jour: toFRShort(daysFromNow(-13)), clics: 37 },
+    { jour: toFRShort(daysFromNow(-12)), clics: 30 },
   ],
 }
 
@@ -1840,7 +1842,7 @@ export const travelerSignalements = {
       },
       categorie: 'Hébergement',
       message: 'L\'eau chaude ne fonctionne pas dans ma villa depuis ce matin.',
-      date: '2026-05-16',
+      date: toISO(daysFromNow(-6)),
       heure: '08:30',
       status: 'en-cours',
     },
@@ -1852,7 +1854,7 @@ export const travelerSignalements = {
       },
       categorie: 'Activité',
       message: 'L\'excursion snorkeling a été annulée sans prévenir, on a attendu 1h sur place.',
-      date: '2026-05-15',
+      date: toISO(daysFromNow(-7)),
       heure: '14:20',
       status: 'résolu',
     },
@@ -1866,7 +1868,7 @@ export const travelerSignalements = {
       },
       categorie: 'Hébergement',
       message: 'La climatisation de ma chambre ne fonctionne pas, il fait très chaud la nuit.',
-      date: '2026-05-13',
+      date: toISO(daysFromNow(-9)),
       heure: '22:15',
       status: 'en-cours',
     },
@@ -1878,7 +1880,7 @@ export const travelerSignalements = {
       },
       categorie: 'Transport',
       message: 'Le ferry prévu pour demain matin a été annulé à cause du vent. Comment on fait ?',
-      date: '2026-05-12',
+      date: toISO(daysFromNow(-10)),
       heure: '19:40',
       status: 'résolu',
     },
@@ -1988,7 +1990,7 @@ export const sankofaChatMessages = {
   1: [
     { id: 1, senderId: 'sankofa', text: 'Bonjour Amina ! L\'équipe Sankofa est disponible pour vous accompagner sur votre voyage Bali 🌴', time: '09:00' },
     { id: 2, senderId: 'amina', text: 'Hello ! J\'ai une question sur le virement des acomptes, c\'est prévu quand ?', time: '09:15' },
-    { id: 3, senderId: 'sankofa', text: 'Les acomptes sont virés automatiquement 48h après réception. Le prochain virement est prévu le 23 mai 💰', time: '09:18' },
+    { id: 3, senderId: 'sankofa', text: `Les acomptes sont virés automatiquement 48h après réception. Le prochain virement est prévu le ${toFRShort(daysFromNow(1))} 💰`, time: '09:18' },
     { id: 4, senderId: 'amina', text: 'Parfait merci ! Et pour l\'assurance groupe, c\'est bien inclus ?', time: '09:25' },
     { id: 5, senderId: 'sankofa', text: 'Oui, l\'assurance Sankofa Protect est incluse pour tous les participants. Vous avez le détail dans l\'onglet Infos Pratiques 📋', time: '09:28' },
   ],

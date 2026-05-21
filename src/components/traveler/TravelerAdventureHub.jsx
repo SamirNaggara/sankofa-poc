@@ -31,6 +31,7 @@ export default function TravelerAdventureHub({ navigate, travelerId }) {
   const [chatOpen, setChatOpen] = useState(false)
   const [chatTab, setChatTab] = useState('annonces')
   const [pocketOpen, setPocketOpen] = useState(false)
+  const [programmeTrigger, setProgrammeTrigger] = useState(0)
 
   const profile = travelerProfiles[travelerId] || travelerProfiles.lucas
   const trip = (travelerTrips[travelerId] || travelerTrips.lucas)[0]
@@ -135,7 +136,7 @@ export default function TravelerAdventureHub({ navigate, travelerId }) {
               onAction={(id) => {
                 if (id === 'annonces') { setChatTab('annonces'); setChatOpen(true) }
                 else if (id === 'infos') { setPocketOpen(true); setTimeout(() => pocketRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100) }
-                else if (id === 'programme') { mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }
+                else if (id === 'programme') { setProgrammeTrigger(c => c + 1); mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
               }}
             />
 
@@ -156,6 +157,7 @@ export default function TravelerAdventureHub({ navigate, travelerId }) {
                   waypoints={waypoints}
                   itinerary={tripDetail.itinerary}
                   currentDay={trip.currentDay}
+                  expandTrigger={programmeTrigger}
                 />
               </div>
 

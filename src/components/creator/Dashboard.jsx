@@ -80,6 +80,7 @@ export default function Dashboard({ navigate }) {
           className="flex items-center gap-2 bg-primary-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-md hover:bg-primary-500/90 transition-colors cursor-pointer"
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
+          onClick={() => navigate('creator-editor')}
         >
           <Plus size={18} />
           Nouveau sondage

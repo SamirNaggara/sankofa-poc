@@ -286,7 +286,7 @@ export default function OrganiserVoyage({ navigate }) {
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
-                  className="mt-4 text-primary-300 font-semibold text-lg tracking-wide"
+                  className="mt-4 text-cream font-semibold text-lg tracking-wide"
                 >
                   📞 +33 1 23 45 67 89
                 </motion.p>
