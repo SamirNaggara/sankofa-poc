@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Pencil, Users, MessageCircle, Wallet, ArrowLeft, ChevronRight, Info, ExternalLink } from 'lucide-react'
 import PageTransition from '../../shared/PageTransition'
@@ -106,6 +106,11 @@ function ActionBlock({ block, data, onClick }) {
 
 export default function VoyageControl({ navigate, voyageId, initialTab, initialSubTab }) {
   const [activeTab, setActiveTab] = useState(initialTab || null)
+
+  // Sync activeTab when navigating from floating chat
+  useEffect(() => {
+    if (initialTab) setActiveTab(initialTab)
+  }, [initialTab])
 
   const trip = suggestedTrips.find((t) => t.id === voyageId) || suggestedTrips[0]
   const controlData = voyageControlData[trip.id] || voyageControlData[1]

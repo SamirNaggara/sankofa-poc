@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X, Users, ChevronRight } from 'lucide-react'
+import { MessageCircle, X, MapPin } from 'lucide-react'
 import { suggestedTrips } from '../../data/fakeData'
 
 const creatorConversations = [
@@ -219,23 +219,18 @@ export default function FloatingChat({ userType = 'traveler', navigate, voyageId
               </motion.button>
             </div>
 
-            {/* Voyage links for creators */}
+            {/* Voyage conversation tabs for creators */}
             {userType === 'creator' && navigate && activeVoyages.length > 0 && (
-              <div className="px-4 py-2.5 border-b border-charcoal/5 space-y-1.5">
-                <p className="text-[10px] font-semibold text-charcoal/40 uppercase tracking-wider px-1">Conversations voyage</p>
+              <div className="flex border-b border-charcoal/5">
                 {activeVoyages.map((trip) => (
-                  <motion.button
+                  <button
                     key={trip.id}
                     onClick={() => handleGoToVoyageChat(trip.id)}
-                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-primary-400/8 transition-colors cursor-pointer group text-left"
-                    whileTap={{ scale: 0.97 }}
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-medium text-charcoal/50 hover:text-accent hover:bg-accent/5 transition-colors cursor-pointer border-b-2 border-transparent hover:border-accent/40"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                      <Users size={13} className="text-accent" />
-                    </div>
-                    <span className="flex-1 text-xs font-medium text-charcoal truncate">{trip.title.split(':')[0].trim()}</span>
-                    <ChevronRight size={14} className="text-charcoal/20 group-hover:text-charcoal/50 transition-colors shrink-0" />
-                  </motion.button>
+                    <MapPin size={12} />
+                    <span className="truncate">{trip.title.split(':')[0].trim()}</span>
+                  </button>
                 ))}
               </div>
             )}
