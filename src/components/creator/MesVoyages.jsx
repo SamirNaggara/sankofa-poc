@@ -128,7 +128,7 @@ export default function MesVoyages({ navigate }) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-charcoal font-display">Mes voyages</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-charcoal font-display">Mes voyages</h1>
         <p className="text-charcoal/50 mt-2 text-sm">
           Sélectionnez un voyage pour accéder à son tableau de bord
         </p>
@@ -139,7 +139,7 @@ export default function MesVoyages({ navigate }) {
         variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
       >
         {trips.map((trip) => (
           <TripCard

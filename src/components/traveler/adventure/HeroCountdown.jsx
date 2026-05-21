@@ -92,7 +92,7 @@ export default function HeroCountdown({ trip, creatorName, weather }) {
   }, [target, isEnCours])
 
   return (
-    <div className="relative w-full h-[70vh] min-h-[420px] overflow-hidden rounded-b-[2.5rem]">
+    <div className="relative w-full h-[55vh] sm:h-[70vh] min-h-[320px] sm:min-h-[420px] overflow-hidden rounded-b-[2.5rem]">
       {/* Background image */}
       <motion.img
         src={trip.image}

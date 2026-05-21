@@ -41,7 +41,7 @@ export default function VoyageTabComptes({ comptes, participants = [] }) {
       className="space-y-6"
     >
       {/* 3 Summary Cards */}
-      <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {/* Revenu total */}
         <div className="bg-white rounded-2xl shadow-md border border-charcoal/5 p-5">
           <div className="flex items-center gap-2 mb-3">

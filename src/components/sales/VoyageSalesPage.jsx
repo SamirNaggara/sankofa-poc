@@ -421,7 +421,7 @@ export default function VoyageSalesPage({ navigate, voyageId, isAdmin }) {
         </header>
 
         {/* ─── A. Hero Carousel ─── */}
-        <div className="relative" style={{ height: '65vh', minHeight: 400, maxHeight: 600 }}>
+        <div className="relative h-[50vh] sm:h-[65vh] min-h-[300px] sm:min-h-[400px] max-h-[600px]">
           <AnimatePresence mode="wait">
             <motion.img
               key={currentImage}

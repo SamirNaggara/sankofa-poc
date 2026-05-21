@@ -160,11 +160,26 @@ function Route({ waypoints, currentDay }) {
   )
 }
 
-export default function MapItinerary({ waypoints, itinerary, currentDay = null }) {
+export default function MapItinerary({ waypoints, itinerary, currentDay = null, expandTrigger = 0 }) {
   const mapRef = useRef(null)
   const timelineRef = useRef(null)
+  const dayRefs = useRef({})
   const timelineInView = useInView(timelineRef, { once: true, margin: '-40px' })
   const [expandedDay, setExpandedDay] = useState(null)
+
+  // Auto-expand current day when "Programme du jour" is clicked
+  useEffect(() => {
+    if (expandTrigger > 0 && currentDay != null) {
+      const dayIndex = itinerary.findIndex(d => d.day === currentDay)
+      if (dayIndex !== -1) {
+        setExpandedDay(dayIndex)
+        // Scroll to the specific day card after a short delay for DOM update
+        setTimeout(() => {
+          dayRefs.current[dayIndex]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        }, 150)
+      }
+    }
+  }, [expandTrigger])
 
   const center = waypoints.length > 0
     ? [
@@ -205,8 +220,7 @@ export default function MapItinerary({ waypoints, itinerary, currentDay = null }
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative rounded-3xl overflow-hidden mb-10 shadow-xl"
-        style={{ height: 380 }}
+        className="relative rounded-3xl overflow-hidden mb-10 shadow-xl h-[260px] sm:h-[380px]"
       >
         <MapContainer
           center={center}
@@ -266,6 +280,7 @@ export default function MapItinerary({ waypoints, itinerary, currentDay = null }
             return (
               <motion.div
                 key={day.day}
+                ref={el => { dayRefs.current[i] = el }}
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: '-20px' }}

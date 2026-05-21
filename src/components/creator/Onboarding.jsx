@@ -89,11 +89,11 @@ export default function Onboarding({ navigate }) {
     <PageTransition>
       <div className="min-h-screen bg-cream flex items-center justify-center p-4">
         <motion.div
-          className="w-full max-w-lg bg-white rounded-3xl shadow-xl p-8"
+          className="w-full max-w-lg bg-white rounded-3xl shadow-xl p-5 sm:p-8"
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
         >
-          <h2 className="text-3xl font-bold text-center text-charcoal mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-charcoal mb-2">
             Bienvenue sur Sankofa
           </h2>
           <p className="text-center text-charcoal/50 mb-6 text-sm">
@@ -163,7 +163,7 @@ export default function Onboarding({ navigate }) {
                 exit={{ opacity: 0, x: -20 }}
               >
                 <p className="text-sm text-charcoal/60 mb-4">Sélectionnez vos centres d'intérêt :</p>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {travelPreferences.map((pref) => {
                     const isSelected = selectedPrefs.includes(pref)
                     return (

@@ -87,11 +87,11 @@ export default function CreatorSidebar({ activeSection, onNavigate, onLogout, mo
             />
             {/* Drawer */}
             <motion.aside
-              initial={{ x: -280 }}
+              initial={{ x: '-100%' }}
               animate={{ x: 0 }}
-              exit={{ x: -280 }}
+              exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 left-0 bottom-0 w-70 bg-white z-50 lg:hidden shadow-xl"
+              className="fixed top-0 left-0 bottom-0 w-[calc(100vw-3.5rem)] max-w-[280px] bg-white z-50 lg:hidden shadow-xl"
             >
               <div className="absolute top-4 right-4">
                 <motion.button

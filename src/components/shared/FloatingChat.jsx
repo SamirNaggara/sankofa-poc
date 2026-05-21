@@ -72,6 +72,8 @@ export default function FloatingChat({ userType = 'traveler', navigate, voyageId
   const [isTyping, setIsTyping] = useState(false)
   const scrollRef = useRef(null)
   const timersRef = useRef([])
+  const panelRef = useRef(null)
+  const buttonRef = useRef(null)
 
   // Active voyages for the creator (first 2 trips as demo)
   const activeVoyages = userType === 'creator' ? suggestedTrips.slice(0, 2) : []
@@ -138,6 +140,21 @@ export default function FloatingChat({ userType = 'traveler', navigate, voyageId
     }
   }
 
+  // Close on click outside
+  useEffect(() => {
+    if (!isOpen) return
+    function handleClickOutside(e) {
+      if (
+        panelRef.current && !panelRef.current.contains(e.target) &&
+        buttonRef.current && !buttonRef.current.contains(e.target)
+      ) {
+        handleClose()
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isOpen])
+
   useEffect(() => {
     return () => clearTimers()
   }, [])
@@ -146,6 +163,7 @@ export default function FloatingChat({ userType = 'traveler', navigate, voyageId
     <>
       {/* Floating button */}
       <motion.button
+        ref={buttonRef}
         onClick={isOpen ? handleClose : handleOpen}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary-500 text-white shadow-lg flex items-center justify-center cursor-pointer"
         whileHover={{ scale: 1.1 }}
@@ -172,11 +190,12 @@ export default function FloatingChat({ userType = 'traveler', navigate, voyageId
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={panelRef}
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-24 right-6 z-50 w-[380px] h-[480px] bg-white rounded-2xl shadow-2xl border border-charcoal/5 flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-4 left-4 z-50 h-[70vh] max-h-[480px] sm:left-auto sm:right-6 sm:w-[380px] bg-white rounded-2xl shadow-2xl border border-charcoal/5 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="px-5 py-4 border-b border-charcoal/5 flex items-center gap-3">

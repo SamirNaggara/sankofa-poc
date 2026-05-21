@@ -67,7 +67,7 @@ export default function ActionCenter({ checklist: initialChecklist, onScrollToPa
   return (
     <div className="px-6 max-w-3xl mx-auto -mt-8 relative z-20">
       {/* Buttons row */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {activeButtons.map((btn, i) => {
           const Icon = btn.icon
           return (

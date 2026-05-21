@@ -49,7 +49,7 @@ export default function EmergencyDeck({ security }) {
                 <p className="text-xs font-medium text-charcoal/40 uppercase tracking-wider mb-4">
                   Infos personnelles
                 </p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {fields.map((item) => (
                     <div key={item.label}>
                       <p className="text-xs text-charcoal/40 mb-0.5">{item.label}</p>
@@ -65,7 +65,7 @@ export default function EmergencyDeck({ security }) {
                       <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                       Contact d'urgence
                     </p>
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div>
                         <p className="text-xs text-charcoal/40 mb-0.5">Nom</p>
                         <p className="text-sm font-medium text-charcoal">{security.urgence.nom}</p>

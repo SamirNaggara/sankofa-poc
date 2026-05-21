@@ -185,7 +185,7 @@ function ParticipantRow({ participant, onClick }) {
   return (
     <motion.div
       variants={itemVariants}
-      className="bg-white rounded-xl border border-charcoal/5 px-5 py-4 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer"
+      className="bg-white rounded-xl border border-charcoal/5 px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 hover:shadow-md transition-shadow cursor-pointer"
       whileHover={{ scale: 1.005 }}
       whileTap={{ scale: 0.998 }}
       onClick={onClick}
