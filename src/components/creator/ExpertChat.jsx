@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send } from 'lucide-react'
+import { Send, Phone } from 'lucide-react'
 import { chatMessages as initialMessages, chatAutoReplies } from '../../data/fakeData'
 
 function TypingIndicator() {
@@ -88,6 +88,10 @@ export default function ExpertChat() {
           <div className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-green-500" />
             <span className="text-xs text-charcoal/40">En ligne</span>
+          </div>
+          <div className="flex items-center gap-1.5 mt-0.5">
+            <Phone size={11} className="text-primary-400" />
+            <span className="text-xs text-primary-500/70 font-medium">Ligne VIP Créateur : +33 1 84 25 77 90</span>
           </div>
         </div>
       </div>

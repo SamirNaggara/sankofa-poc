@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
-import { Image, Tag, ExternalLink, Circle } from 'lucide-react'
+import { Image, Tag, Eye, Circle } from 'lucide-react'
 
 const itemVariants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 }
 
-function PageLinkCard({ editData, trip }) {
+function PageLinkCard({ editData, trip, navigate }) {
   return (
     <motion.div
       variants={itemVariants}
@@ -35,10 +35,10 @@ function PageLinkCard({ editData, trip }) {
             className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-500/10 text-primary-500 text-xs font-semibold cursor-pointer"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => window.open('#', '_blank')}
+            onClick={() => navigate('voyage-sales', { voyageId: trip.id })}
           >
             Voir ma page
-            <ExternalLink size={12} />
+            <Eye size={12} />
           </motion.button>
         </div>
       </div>
@@ -46,7 +46,7 @@ function PageLinkCard({ editData, trip }) {
   )
 }
 
-export default function VoyageTabEditer({ editData, trip }) {
+export default function VoyageTabEditer({ editData, trip, navigate, hidePageLink }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -55,7 +55,7 @@ export default function VoyageTabEditer({ editData, trip }) {
       transition={{ duration: 0.25 }}
     >
       {/* Page link card */}
-      <PageLinkCard editData={editData} trip={trip} />
+      {!hidePageLink && <PageLinkCard editData={editData} trip={trip} navigate={navigate} />}
 
       {/* Form */}
       <motion.div

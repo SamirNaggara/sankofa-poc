@@ -57,7 +57,13 @@ export default function Login({ navigate }) {
         navigate('creator-dashboard')
       }
     } else {
-      navigate('traveler-dashboard')
+      if (index === 0) {
+        navigate('traveler-dashboard', { travelerId: 'lucas' })
+      } else if (index === 1) {
+        navigate('traveler-dashboard', { travelerId: 'sophie' })
+      } else {
+        navigate('traveler-dashboard', { travelerId: 'lucas' })
+      }
     }
   }
 

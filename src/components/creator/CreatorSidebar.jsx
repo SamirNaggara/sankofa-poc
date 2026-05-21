@@ -4,8 +4,8 @@ import { creatorProfile } from '../../data/fakeData'
 
 const navItems = [
   { id: 'sondages', label: 'Sondages', icon: ClipboardList },
-  { id: 'organiser-voyage', label: 'Organiser un voyage', icon: Plane },
-  { id: 'mes-voyages', label: 'Mes voyages', icon: Luggage },
+  { id: 'organiser-voyage', label: 'Catalogue Inspirations', icon: Plane },
+  { id: 'mes-voyages', label: 'Voyages Actifs', icon: Luggage },
 ]
 
 function SidebarContent({ activeSection, onNavigate, onLogout }) {

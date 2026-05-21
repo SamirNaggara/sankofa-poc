@@ -93,6 +93,7 @@ function TripCard({ trip, controlData, navigate }) {
             {trip.title}
           </h3>
         </div>
+
       </div>
 
       {/* Metrics row */}
@@ -149,6 +150,7 @@ export default function MesVoyages({ navigate }) {
           />
         ))}
       </motion.div>
+
     </div>
   )
 }

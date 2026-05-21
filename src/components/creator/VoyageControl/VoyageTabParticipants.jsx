@@ -119,6 +119,29 @@ function ParticipantModal({ participant, onClose }) {
           </div>
         </div>
 
+        {/* Section Sécurité & Urgence */}
+        {participant.urgence && (
+          <div className="px-6 pb-4">
+            <div className="border-t border-charcoal/8 pt-4">
+              <h4 className="text-xs font-bold text-charcoal/40 uppercase tracking-wider mb-3">Sécurité & Urgence</h4>
+              <div className="space-y-2.5 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-charcoal/60">Contact d'urgence</span>
+                  <span className="font-medium text-charcoal">{participant.urgence.nom}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-charcoal/60">Lien</span>
+                  <span className="font-medium text-charcoal">{participant.urgence.lien}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-charcoal/60">Téléphone urgence</span>
+                  <span className="font-medium text-charcoal">{participant.urgence.telephone}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Section Paiement */}
         <div className="px-6 pb-6">
           <div className="border-t border-charcoal/8 pt-4">

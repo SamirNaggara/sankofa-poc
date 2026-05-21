@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { LogOut, Edit3, Save, Compass, Sparkles } from 'lucide-react'
+import { LogOut, Edit3, Save, MapPin, ChevronRight } from 'lucide-react'
 import PageTransition from '../shared/PageTransition'
-import { travelerProfile } from '../../data/fakeData'
+import { travelerProfile, travelerTrips } from '../../data/fakeData'
 
 export default function TravelerDashboard({ navigate }) {
   const [editing, setEditing] = useState(false)
@@ -123,39 +123,61 @@ export default function TravelerDashboard({ navigate }) {
             </div>
           </motion.div>
 
-          {/* Coming Soon section */}
+          {/* Mes Voyages */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-3xl shadow-lg border border-charcoal/5 p-10 text-center"
           >
-            <motion.div
-              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-400 to-secondary-400 flex items-center justify-center mx-auto mb-6"
-              animate={{
-                scale: [1, 1.05, 1],
-                boxShadow: [
-                  '0 0 0 0 rgba(217,119,6,0)',
-                  '0 0 24px 8px rgba(217,119,6,0.15)',
-                  '0 0 0 0 rgba(217,119,6,0)',
-                ],
-              }}
-              transition={{ duration: 2.5, repeat: Infinity }}
-            >
-              <Compass size={36} className="text-white" />
-            </motion.div>
-            <h2 className="text-2xl font-bold text-charcoal mb-2">Mes Voyages</h2>
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <Sparkles size={16} className="text-primary-500" />
-              <span className="text-sm font-semibold text-primary-500 uppercase tracking-wider">
-                Coming Soon
-              </span>
-              <Sparkles size={16} className="text-primary-500" />
+            <h2 className="text-2xl font-bold text-charcoal mb-5">Mes Voyages</h2>
+            <div className="space-y-4">
+              {travelerTrips.map((trip) => (
+                  <motion.button
+                    key={trip.tripId}
+                    onClick={() => navigate('traveler-dashboard', { travelerId: 'lucas' })}
+                    className="w-full bg-white rounded-2xl shadow-lg border border-charcoal/5 overflow-hidden cursor-pointer text-left group"
+                    whileHover={{ y: -2, boxShadow: '0 8px 30px -5px rgba(0,0,0,0.12)' }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="relative h-40 overflow-hidden">
+                      <img
+                        src={trip.image}
+                        alt={trip.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                      <span className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold ${
+                        trip.status === 'en-cours'
+                          ? 'bg-green-500 text-white'
+                          : 'bg-primary-400 text-white'
+                      }`}>
+                        {trip.status === 'en-cours' ? 'En cours' : 'Confirmé'}
+                      </span>
+                      <div className="absolute bottom-3 left-4 right-4">
+                        <h3 className="text-white font-bold text-lg leading-tight drop-shadow-md">{trip.title}</h3>
+                      </div>
+                    </div>
+                    <div className="p-4 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={trip.creator.avatar}
+                          alt={trip.creator.name}
+                          className="w-8 h-8 rounded-full bg-cream-warm"
+                        />
+                        <div>
+                          <p className="text-xs text-charcoal/50">Organisé par</p>
+                          <p className="text-sm font-semibold text-primary-500">{trip.creator.name}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-charcoal/40">
+                        <MapPin size={14} />
+                        <span className="text-xs">{trip.dates}</span>
+                        <ChevronRight size={16} className="text-charcoal/20 group-hover:text-charcoal/50 transition-colors" />
+                      </div>
+                    </div>
+                  </motion.button>
+              ))}
             </div>
-            <p className="text-charcoal/50 max-w-sm mx-auto text-sm leading-relaxed">
-              Bientôt, retrouvez ici tous les voyages proposés par vos créateurs préférés.
-              Réservez en un clic et vivez des expériences uniques !
-            </p>
           </motion.div>
         </main>
       </div>

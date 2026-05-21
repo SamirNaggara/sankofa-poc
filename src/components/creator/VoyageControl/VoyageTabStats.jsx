@@ -31,7 +31,7 @@ export default function VoyageTabStats({ stats }) {
       exit={{ opacity: 0, y: 8 }}
     >
       {/* Mini tiles */}
-      <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+      <motion.div variants={itemVariants} className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
         {tiles.map((tile) => {
           const Icon = tile.icon
           const value = stats[tile.key]
@@ -41,10 +41,10 @@ export default function VoyageTabStats({ stats }) {
               className="bg-white rounded-xl border border-charcoal/5 p-4 flex flex-col gap-2"
             >
               <div className="flex items-center gap-2">
-                <div className={`w-7 h-7 rounded-lg ${tile.bg} flex items-center justify-center`}>
+                <div className={`w-7 h-7 rounded-lg ${tile.bg} flex items-center justify-center shrink-0`}>
                   <Icon size={14} className={tile.color} />
                 </div>
-                <span className="text-xs text-charcoal/50">{tile.label}</span>
+                <span className="text-xs text-charcoal/50 leading-tight">{tile.label}</span>
               </div>
               <p className="text-xl font-bold text-charcoal">
                 {value}{tile.suffix && !String(value).includes(tile.suffix) ? tile.suffix : ''}

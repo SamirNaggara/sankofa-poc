@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight, Clock, Users, Calendar, MapPin, Check, Sparkles } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Clock, Users, Calendar, MapPin, Check, Sparkles, Heart, Leaf, Globe, CheckCircle2 } from 'lucide-react'
 
 const contentStagger = {
   hidden: {},
@@ -17,8 +17,11 @@ const itineraryItem = {
   show: { opacity: 1, x: 0, transition: { duration: 0.35 } },
 }
 
-export default function ExpandedTripCard({ trip, onClose, onReserve }) {
+export default function ExpandedTripCard({ trip, onClose }) {
   const [currentImage, setCurrentImage] = useState(0)
+  const [configOpen, setConfigOpen] = useState(false)
+  const [requestSent, setRequestSent] = useState(false)
+  const [selectedDate, setSelectedDate] = useState('2026-06-15')
   const images = trip.images || [trip.image]
 
   const nextImage = (e) => {
@@ -160,12 +163,10 @@ export default function ExpandedTripCard({ trip, onClose, onReserve }) {
                 <span className="text-sm font-medium text-charcoal">{trip.groupSize}</span>
               </div>
             )}
-            {trip.departureDate && (
-              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-cream">
-                <Calendar size={16} className="text-primary-500" />
-                <span className="text-sm font-medium text-charcoal">{trip.departureDate}</span>
-              </div>
-            )}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-primary-50 border border-primary-200">
+              <Calendar size={16} className="text-primary-500" />
+              <span className="text-sm font-medium text-primary-600">Période recommandée : Mai à Octobre</span>
+            </div>
           </motion.div>
 
           {/* Description */}
@@ -173,6 +174,30 @@ export default function ExpandedTripCard({ trip, onClose, onReserve }) {
             <motion.p variants={contentItem} className="text-charcoal/70 leading-relaxed mb-8">
               {trip.description}
             </motion.p>
+          )}
+
+          {/* Engagement responsable */}
+          {trip.esgHighlights && trip.esgHighlights.length > 0 && (
+            <motion.div variants={contentItem} className="mb-8">
+              <h3 className="text-lg font-bold text-charcoal mb-4">Engagement responsable</h3>
+              <div className="grid gap-3">
+                {trip.esgHighlights.map((item, i) => {
+                  const IconMap = { heart: Heart, leaf: Leaf, globe: Globe }
+                  const Icon = IconMap[item.icon] || Globe
+                  return (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
+                        <Icon size={16} className="text-emerald-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-charcoal">{item.label}</p>
+                        <p className="text-xs text-charcoal/50">{item.detail}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </motion.div>
           )}
 
           {/* Itinerary */}
@@ -239,20 +264,71 @@ export default function ExpandedTripCard({ trip, onClose, onReserve }) {
           transition={{ delay: 0.5 }}
           className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-white/95 backdrop-blur-sm border-t border-charcoal/5"
         >
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <p className="text-xs text-charcoal/50">À partir de</p>
-              <p className="text-xl font-bold text-charcoal">{trip.estimatedPrice}<span className="text-sm font-normal text-charcoal/50"> /pers.</span></p>
-            </div>
-            <motion.button
-              onClick={() => onReserve(trip)}
-              className="px-6 py-3 bg-gradient-to-r from-primary-400 to-primary-600 text-white font-semibold rounded-xl cursor-pointer"
-              whileHover={{ scale: 1.03, boxShadow: '0 4px 20px rgba(217, 119, 6, 0.35)' }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Réserver ce voyage
-            </motion.button>
-          </div>
+          <AnimatePresence mode="wait">
+            {requestSent ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-green-50 border border-green-200"
+              >
+                <CheckCircle2 size={20} className="text-green-500 shrink-0" />
+                <p className="text-sm text-green-700 font-medium">
+                  Demande transmise à votre expert. Karim vous contactera pour valider ces dates.
+                </p>
+              </motion.div>
+            ) : configOpen ? (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3"
+              >
+                <div className="flex-1">
+                  <label className="block text-xs font-medium text-charcoal/60 mb-1.5">Date de départ souhaitée</label>
+                  <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    min="2026-06-01"
+                    max="2027-12-31"
+                    className="w-full px-4 py-2.5 rounded-xl bg-cream border border-charcoal/10 text-sm text-charcoal focus:outline-none focus:border-primary-500/40 transition-colors cursor-pointer"
+                  />
+                </div>
+                <motion.button
+                  onClick={() => setRequestSent(true)}
+                  className="px-6 py-2.5 bg-gradient-to-r from-primary-400 to-primary-600 text-white font-semibold rounded-xl cursor-pointer text-sm whitespace-nowrap"
+                  whileHover={{ scale: 1.03, boxShadow: '0 4px 20px rgba(217, 119, 6, 0.35)' }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Envoyer la demande à Sankofa
+                </motion.button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="button"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex items-center justify-between gap-4"
+              >
+                <div>
+                  <p className="text-xs text-charcoal/50">À partir de</p>
+                  <p className="text-xl font-bold text-charcoal">{trip.estimatedPrice}<span className="text-sm font-normal text-charcoal/50"> /pers.</span></p>
+                </div>
+                <motion.button
+                  onClick={() => setConfigOpen(true)}
+                  className="px-6 py-3 bg-gradient-to-r from-primary-400 to-primary-600 text-white font-semibold rounded-xl cursor-pointer"
+                  whileHover={{ scale: 1.03, boxShadow: '0 4px 20px rgba(217, 119, 6, 0.35)' }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Configurer ce séjour
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </motion.div>
     </>

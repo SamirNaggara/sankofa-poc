@@ -1,27 +1,24 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BarChart3, Pencil, Users, MessageCircle, Share2, Wallet, ArrowLeft, ChevronRight, Info } from 'lucide-react'
+import { Pencil, Users, MessageCircle, Wallet, ArrowLeft, ChevronRight, Info, ExternalLink } from 'lucide-react'
 import PageTransition from '../../shared/PageTransition'
 import VoyageHeader from './VoyageHeader'
 import VoyageKPIs from './VoyageKPIs'
-import VoyageTabEditer from './VoyageTabEditer'
 import VoyageTabParticipants from './VoyageTabParticipants'
-import VoyageTabStats from './VoyageTabStats'
-import VoyageTabChat from './VoyageTabChat'
-import VoyageTabPartager from './VoyageTabPartager'
+import VoyageTabCommunication from './VoyageTabCommunication'
 import VoyageTabComptes from './VoyageTabComptes'
 import VoyageTabInfosPratiques from './VoyageTabInfosPratiques'
-import { suggestedTrips, voyageControlData, voyageChatMessages, voyageChatAutoReplies, voyagePageStats, voyageTrackingLinks, voyageInfosPratiques, voyageMessages } from '../../../data/fakeData'
+import { suggestedTrips, voyageControlData, voyageInfosPratiques, voyageMessages, travelerDMs, travelerDMAutoReplies, groupChatMembers, groupChatMessages, groupChatAutoReplies, sankofaChatMessages, sankofaChatAutoReplies } from '../../../data/fakeData'
 
 const actionBlocks = [
   {
-    id: 'editer',
-    label: 'Ma page',
-    icon: Pencil,
+    id: 'page-de-vente',
+    label: 'Page de vente',
+    icon: ExternalLink,
     color: 'bg-rose-500/15',
     iconColor: 'text-rose-600',
     getPreview: (data) => `Complétion: ${data.controlData?.editData?.completion || 80}% · ${data.controlData?.editData?.dates || ''}`,
-    subtext: 'Modifier et visualiser votre page',
+    subtext: 'Voir et modifier votre page de vente',
   },
   {
     id: 'participants',
@@ -52,47 +49,29 @@ const actionBlocks = [
     subtext: 'Détail des revenus',
   },
   {
-    id: 'partager',
-    label: 'Partager',
-    icon: Share2,
-    color: 'bg-primary-400/15',
-    iconColor: 'text-primary-500',
-    getPreview: (data) => `${data.pageStats?.vues || 0} vues · ${data.pageStats?.tauxConversion || 0}% conversion`,
-    subtext: 'Liens de tracking et partage',
-  },
-  {
-    id: 'stats',
-    label: 'Statistiques',
-    icon: BarChart3,
-    color: 'bg-purple-500/15',
-    iconColor: 'text-purple-600',
-    getPreview: (data) => `${data.pageStats?.vues || 0} vues cette semaine`,
-    subtext: 'Analyser votre audience',
-  },
-  {
     id: 'infos-pratiques',
-    label: 'Infos pratiques',
+    label: 'Fiche voyage',
     icon: Info,
     color: 'bg-sky-500/15',
     iconColor: 'text-sky-600',
     getPreview: (data) => {
-      const msgCount = data.messages?.length || 0
       const rdvDate = data.infos?.rendezVous?.date || ''
-      return `${msgCount} message${msgCount > 1 ? 's' : ''} · RDV ${rdvDate}`
+      return `Départ ${rdvDate} · Programme & logistique`
     },
-    subtext: 'Logistique et messages aux voyageurs',
+    subtext: 'Toutes les infos du voyage',
   },
   {
-    id: 'chat',
-    label: 'Chat',
+    id: 'communication',
+    label: 'Communication',
     icon: MessageCircle,
     color: 'bg-blue-500/15',
     iconColor: 'text-blue-600',
     getPreview: (data) => {
-      const unread = data.unreadCount || 0
-      return unread > 0 ? `${unread} message${unread > 1 ? 's' : ''} non lu${unread > 1 ? 's' : ''}` : 'Aucun nouveau message'
+      const unread = data.dmUnread || 0
+      if (unread > 0) return `${unread} message${unread > 1 ? 's' : ''} non lu${unread > 1 ? 's' : ''}`
+      return 'Aucun nouveau message'
     },
-    subtext: 'Discuter avec l\'organisateur',
+    subtext: 'Annonces, groupe, messages & support Sankofa',
   },
 ]
 
@@ -125,24 +104,26 @@ function ActionBlock({ block, data, onClick }) {
   )
 }
 
-export default function VoyageControl({ navigate, voyageId, initialTab }) {
+export default function VoyageControl({ navigate, voyageId, initialTab, initialSubTab }) {
   const [activeTab, setActiveTab] = useState(initialTab || null)
 
   const trip = suggestedTrips.find((t) => t.id === voyageId) || suggestedTrips[0]
   const controlData = voyageControlData[trip.id] || voyageControlData[1]
-  const chatData = voyageChatMessages[trip.id]
-  const autoReplies = voyageChatAutoReplies?.[trip.id]
-  const pageStats = voyagePageStats[trip.id]
-  const trackingLinks = voyageTrackingLinks[trip.id]
 
   const infos = voyageInfosPratiques[trip.id]
   const messagesData = voyageMessages[trip.id]
 
-  const unreadCount = chatData?.messages?.filter((m) => !m.read).length || 0
+  const dmsData = travelerDMs[trip.id] || []
+  const dmAutoRepliesData = travelerDMAutoReplies[trip.id]
+  const groupMembersData = groupChatMembers[trip.id] || []
+  const groupMessagesData = groupChatMessages[trip.id] || []
+  const groupAutoRepliesData = groupChatAutoReplies[trip.id] || []
+  const sankofaMessagesData = sankofaChatMessages[trip.id] || []
+  const sankofaAutoRepliesData = sankofaChatAutoReplies[trip.id] || []
 
-  const tripSlug = trip.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '').slice(0, 30)
+  const dmUnread = dmsData.reduce((sum, c) => sum + c.unreadCount, 0)
 
-  const blockData = { controlData, pageStats, unreadCount, infos, messages: messagesData }
+  const blockData = { controlData, dmUnread, infos, messages: messagesData }
 
   return (
     <PageTransition>
@@ -150,10 +131,12 @@ export default function VoyageControl({ navigate, voyageId, initialTab }) {
         <VoyageHeader trip={trip} controlData={controlData} navigate={navigate} />
 
         <main className="max-w-6xl mx-auto px-6 py-8">
-          {/* KPIs */}
-          <div className="mb-8">
-            <VoyageKPIs kpis={controlData.kpis} controlData={controlData} />
-          </div>
+          {/* KPIs — hidden when a tab is open */}
+          {activeTab === null && (
+            <div className="mb-8">
+              <VoyageKPIs kpis={controlData.kpis} controlData={controlData} />
+            </div>
+          )}
 
           <AnimatePresence mode="wait">
             {activeTab === null ? (
@@ -166,12 +149,18 @@ export default function VoyageControl({ navigate, voyageId, initialTab }) {
                 transition={{ duration: 0.2 }}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {actionBlocks.map((block, i) => (
+                  {actionBlocks.map((block) => (
                     <ActionBlock
                       key={block.id}
                       block={block}
                       data={blockData}
-                      onClick={() => setActiveTab(block.id)}
+                      onClick={() => {
+                        if (block.id === 'page-de-vente') {
+                          navigate('voyage-sales', { voyageId: trip.id, isAdmin: true })
+                        } else {
+                          setActiveTab(block.id)
+                        }
+                      }}
                     />
                   ))}
                 </div>
@@ -194,26 +183,27 @@ export default function VoyageControl({ navigate, voyageId, initialTab }) {
                   Vue d'ensemble
                 </motion.button>
 
-                {activeTab === 'stats' && (
-                  <VoyageTabStats stats={pageStats} />
-                )}
-                {activeTab === 'partager' && (
-                  <VoyageTabPartager links={trackingLinks} tripSlug={tripSlug} />
-                )}
                 {activeTab === 'participants' && (
                   <VoyageTabParticipants participants={controlData.participants} />
                 )}
-                {activeTab === 'chat' && (
-                  <VoyageTabChat chatData={chatData} autoReplies={autoReplies} />
-                )}
-                {activeTab === 'editer' && (
-                  <VoyageTabEditer editData={controlData.editData} trip={trip} />
+                {activeTab === 'communication' && (
+                  <VoyageTabCommunication
+                    messages={messagesData}
+                    dms={dmsData}
+                    dmAutoReplies={dmAutoRepliesData}
+                    groupMembers={groupMembersData}
+                    groupMessages={groupMessagesData}
+                    groupAutoReplies={groupAutoRepliesData}
+                    sankofaMessages={sankofaMessagesData}
+                    sankofaAutoReplies={sankofaAutoRepliesData}
+                    initialSubTab={initialSubTab}
+                  />
                 )}
                 {activeTab === 'comptes' && (
-                  <VoyageTabComptes comptes={controlData.comptes} />
+                  <VoyageTabComptes comptes={controlData.comptes} participants={controlData.participants} />
                 )}
                 {activeTab === 'infos-pratiques' && (
-                  <VoyageTabInfosPratiques infos={infos} messages={messagesData} />
+                  <VoyageTabInfosPratiques infos={infos} trip={trip} />
                 )}
               </motion.div>
             )}

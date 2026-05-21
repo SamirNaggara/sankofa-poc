@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X } from 'lucide-react'
+import { MessageCircle, X, Users, ChevronRight } from 'lucide-react'
+import { suggestedTrips } from '../../data/fakeData'
 
 const creatorConversations = [
   // 1. Organisation Bali
@@ -65,12 +66,15 @@ function TypingIndicator() {
   )
 }
 
-export default function FloatingChat({ userType = 'traveler' }) {
+export default function FloatingChat({ userType = 'traveler', navigate, voyageId }) {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])
   const [isTyping, setIsTyping] = useState(false)
   const scrollRef = useRef(null)
   const timersRef = useRef([])
+
+  // Active voyages for the creator (first 2 trips as demo)
+  const activeVoyages = userType === 'creator' ? suggestedTrips.slice(0, 2) : []
 
   // Auto-scroll on new messages
   useEffect(() => {
@@ -125,6 +129,13 @@ export default function FloatingChat({ userType = 'traveler' }) {
     clearTimers()
     setMessages([])
     setIsTyping(false)
+  }
+
+  function handleGoToVoyageChat(tripId) {
+    handleClose()
+    if (navigate) {
+      navigate('voyage-control', { voyageId: tripId, tab: 'communication', subTab: 'groupe' })
+    }
   }
 
   useEffect(() => {
@@ -189,6 +200,27 @@ export default function FloatingChat({ userType = 'traveler' }) {
               </motion.button>
             </div>
 
+            {/* Voyage links for creators */}
+            {userType === 'creator' && navigate && activeVoyages.length > 0 && (
+              <div className="px-4 py-2.5 border-b border-charcoal/5 space-y-1.5">
+                <p className="text-[10px] font-semibold text-charcoal/40 uppercase tracking-wider px-1">Conversations voyage</p>
+                {activeVoyages.map((trip) => (
+                  <motion.button
+                    key={trip.id}
+                    onClick={() => handleGoToVoyageChat(trip.id)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-primary-400/8 transition-colors cursor-pointer group text-left"
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                      <Users size={13} className="text-accent" />
+                    </div>
+                    <span className="flex-1 text-xs font-medium text-charcoal truncate">{trip.title.split(':')[0].trim()}</span>
+                    <ChevronRight size={14} className="text-charcoal/20 group-hover:text-charcoal/50 transition-colors shrink-0" />
+                  </motion.button>
+                ))}
+              </div>
+            )}
+
             {/* Messages */}
             <div ref={scrollRef} className="flex-1 px-5 py-4 space-y-3 overflow-y-auto">
               <AnimatePresence initial={false}>
@@ -222,7 +254,7 @@ export default function FloatingChat({ userType = 'traveler' }) {
               )}
             </div>
 
-            {/* Input (disabled — demo only) */}
+            {/* Footer */}
             <div className="px-5 py-3 border-t border-charcoal/5">
               <input
                 type="text"

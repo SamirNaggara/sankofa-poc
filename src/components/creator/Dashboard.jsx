@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { BarChart3, Plus, ChevronRight } from 'lucide-react'
+import { BarChart3, Plus, ChevronRight, Eye } from 'lucide-react'
 import { surveys } from '../../data/fakeData'
 
 const containerVariants = {
@@ -49,7 +49,21 @@ function SurveyRow({ survey, navigate }) {
         </div>
       </div>
 
-      <ChevronRight size={20} className="text-charcoal/30 ml-4" />
+      <div className="flex items-center gap-2 ml-4">
+        <motion.button
+          onClick={(e) => {
+            e.stopPropagation()
+            navigate('survey-preview', { surveyId: survey.id })
+          }}
+          className="p-2 rounded-lg text-charcoal/40 hover:text-accent hover:bg-accent/10 transition-colors cursor-pointer"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          title="Aperçu du sondage"
+        >
+          <Eye size={18} />
+        </motion.button>
+        <ChevronRight size={20} className="text-charcoal/30" />
+      </div>
     </motion.div>
   )
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-import { Sparkles, MessageCircle, X, CheckCircle2, MapPin, Calendar, Filter, ChevronDown } from 'lucide-react'
+import { Sparkles, MessageCircle, Phone, X, CheckCircle2, MapPin, Calendar, Filter, ChevronDown } from 'lucide-react'
 import TripCard, { containerVariants } from './TripCard'
 import ExpandedTripCard from './ExpandedTripCard'
 import ExpertChat from './ExpertChat'
@@ -39,6 +39,8 @@ export default function OrganiserVoyage({ navigate }) {
   const [tripsKey, setTripsKey] = useState(0)
   const [expandedTrip, setExpandedTrip] = useState(null)
   const [showMore, setShowMore] = useState(false)
+  const [showPhone, setShowPhone] = useState(false)
+  const chatRef = useRef(null)
 
   const handleFilterChange = (newIds) => {
     setSelectedSurveyIds(newIds)
@@ -101,7 +103,7 @@ export default function OrganiserVoyage({ navigate }) {
         animate={{ opacity: 1, y: 0 }}
         className="mb-4"
       >
-        <h1 className="text-3xl font-bold text-charcoal font-display">Organiser un voyage</h1>
+        <h1 className="text-3xl font-bold text-charcoal font-display">Catalogue Inspirations</h1>
         <p className="text-charcoal/50 mt-2 text-sm">
           Propositions basées sur les {surveyResults.totalResponses} réponses de votre communauté
         </p>
@@ -241,53 +243,69 @@ export default function OrganiserVoyage({ navigate }) {
               key={expandedTrip.id}
               trip={expandedTrip}
               onClose={handleCloseExpanded}
-              onReserve={handleReserveFromExpanded}
             />
           )}
         </AnimatePresence>
       </LayoutGroup>
 
-      {/* Custom experience section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="relative overflow-hidden rounded-2xl bg-charcoal p-8 text-center mb-12"
-      >
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-transparent to-accent/10" />
+      {/* Custom experience + Expert chat — side by side on desktop */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+        {/* Custom experience section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="relative overflow-hidden rounded-2xl bg-charcoal p-8 text-center flex flex-col justify-center"
+        >
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-transparent to-accent/10" />
 
-        {/* Gold decorative line */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full bg-gradient-to-r from-primary-400 to-primary-600" />
+          {/* Gold decorative line */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full bg-gradient-to-r from-primary-400 to-primary-600" />
 
-        <div className="relative">
-          <Sparkles size={28} className="text-primary-400 mx-auto mb-4" />
-          <h4 className="text-xl font-bold text-white mb-2">
-            Envie d'une expérience sur-mesure ?
-          </h4>
-          <p className="text-white/60 text-sm max-w-md mx-auto mb-6">
-            Notre équipe peut créer un voyage entièrement personnalisé pour votre communauté, avec des activités exclusives et un accompagnement dédié.
-          </p>
-          <motion.button
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-400 to-primary-600 text-white font-semibold rounded-xl cursor-pointer"
-            whileHover={{ scale: 1.04, boxShadow: '0 0 24px rgba(217, 119, 6, 0.4)' }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <MessageCircle size={18} />
-            Contacter un Expert Sankofa
-          </motion.button>
-        </div>
-      </motion.div>
+          <div className="relative">
+            <Sparkles size={28} className="text-primary-400 mx-auto mb-4" />
+            <h4 className="text-xl font-bold text-white mb-2">
+              Envie d'une expérience sur-mesure ?
+            </h4>
+            <p className="text-white/60 text-sm max-w-md mx-auto mb-6">
+              Notre équipe peut créer un voyage entièrement personnalisé pour votre communauté, avec des activités exclusives et un accompagnement dédié.
+            </p>
+            <motion.button
+              onClick={() => setShowPhone(!showPhone)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-400 to-primary-600 text-white font-semibold rounded-xl cursor-pointer"
+              whileHover={{ scale: 1.04, boxShadow: '0 0 24px rgba(217, 119, 6, 0.4)' }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Phone size={18} />
+              Contacter un Expert Sankofa
+            </motion.button>
+            <AnimatePresence>
+              {showPhone && (
+                <motion.p
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  className="mt-4 text-primary-300 font-semibold text-lg tracking-wide"
+                >
+                  📞 +33 1 23 45 67 89
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+        </motion.div>
 
-      {/* Chat section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-      >
-        <h3 className="text-xl font-bold text-charcoal mb-4">Discuter avec un expert</h3>
-        <ExpertChat />
-      </motion.div>
+        {/* Chat section */}
+        <motion.div
+          ref={chatRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+        >
+          <h3 className="text-xl font-bold text-charcoal mb-4">Discuter avec un expert</h3>
+          <ExpertChat />
+        </motion.div>
+      </div>
 
       {/* Modal overlay */}
       <AnimatePresence>
