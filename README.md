@@ -1,16 +1,28 @@
-# React + Vite
+# Sankofa POC
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Maquette interactive de **Sanko**, la plateforme qui permet à des créateurs de contenu d'organiser un voyage avec leur communauté. Réalisée en mai 2026 comme **preuve de concept** pour des présentations : ce n'est pas le produit final, et le code de production n'est pas celui-ci.
 
-Currently, two official plugins are available:
+Tout est simulé. Il n'y a pas de backend, pas de base de données, pas d'appel réseau : les voyages, les sondages, les conversations et les résultats viennent de `src/data/fakeData.js`. L'objectif était de faire ressentir le parcours, côté créateur et côté voyageur, avant d'écrire la vraie plateforme.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Ce que la maquette montre
 
-## React Compiler
+- **Côté créateur** : onboarding, tableau de bord, création et résultats de sondage, organisation du voyage, échange avec un expert.
+- **Côté voyageur** : sondage public, page de vente du voyage, détail et carnet d'aventure.
+- **Côté équipe** : barre d'administration et tiroir de partage.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack
 
-## Expanding the ESLint configuration
+React 19, Vite, Tailwind, Framer Motion pour les transitions, Leaflet pour les cartes, Recharts pour les graphiques.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Lancer
+
+```bash
+npm install
+npm run dev
+```
+
+L'accès est protégé par un code défini dans `VITE_ACCESS_CODE` (fichier `.env`, non versionné). Sans cette variable, la porte reste fermée.
+
+## Licence
+
+MIT. Voir [LICENSE](./LICENSE).
